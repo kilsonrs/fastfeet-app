@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Pending from './Pending';
-import History from './History';
+import { Pending } from './Pending';
+import { History } from './History';
 
 const DeliveryTab = createBottomTabNavigator();
 
-const DeliveryTabScreen: React.FC = () => {
+const DeliveryTabScreens: React.FC = () => {
   return (
     <DeliveryTab.Navigator
       tabBarOptions={{
@@ -27,4 +27,4 @@ const DeliveryTabScreen: React.FC = () => {
   );
 };
 
-export default DeliveryTabScreen;
+export { DeliveryTabScreens };

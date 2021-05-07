@@ -5,10 +5,10 @@ import { Container, TextInput, Icon } from './styles';
 const SearchInput: React.FC = () => {
   return (
     <Container>
-      <TextInput />
+      <TextInput placeholder="Filtrar por bairro" />
       <Icon name="search" size={24} color="#BEBCCC" />
     </Container>
   );
 };
 
-export default SearchInput;
+export { SearchInput };

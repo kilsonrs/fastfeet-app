@@ -7,8 +7,8 @@ export const Container = styled.View`
   height: 56px;
   margin: -28px 24px 0;
   border-radius: 4px;
-  background: #f7f5fa;
-  elevation: 1;
+  background: #fff;
+  elevation: 2;
 `;
 
 export const TextInput = styled.TextInput`

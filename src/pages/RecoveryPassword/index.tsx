@@ -52,4 +52,4 @@ const RecoveryPassword: React.FC = () => {
     </Container>
   );
 };
-export default RecoveryPassword;
+export { RecoveryPassword };

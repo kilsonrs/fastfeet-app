@@ -14,11 +14,11 @@ import {
 } from './styles';
 
 const Header: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   return (
     <Container>
       <ProfileContent>
-        <ProfileText>{`Bem vindo, \nTiago Luchtenberg`}</ProfileText>
+        <ProfileText>{`Bem vindo, \n${user.name}`}</ProfileText>
         <Logout onPress={() => signOut()}>
           <Icon name="logout" size={24} color="#ffc042" />
         </Logout>
@@ -27,11 +27,11 @@ const Header: React.FC = () => {
         <Title>Entregas</Title>
         <PlaceContent>
           <Icon name="place" size={24} color="#ffc042" />
-          <PlaceText>Rio do Sul</PlaceText>
+          <PlaceText>São Paulo</PlaceText>
         </PlaceContent>
       </HeaderContent>
     </Container>
   );
 };
 
-export default Header;
+export { Header };

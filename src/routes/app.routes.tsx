@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Deliveries from '../pages/Deliveries';
-import Details from '../pages/Deliveries/Details';
+import { DeliveryTabScreens } from '../pages/DeliveryTabScreens';
+import { Details } from '../pages/DeliveryTabScreens/Details';
 
 const App = createStackNavigator();
 
@@ -21,7 +21,7 @@ const AppRoutes: React.FC = () => (
       },
     }}
   >
-    <App.Screen name="Entregas" component={Deliveries} />
+    <App.Screen name="Entregas" component={DeliveryTabScreens} />
     <App.Screen
       options={{
         headerShown: true,

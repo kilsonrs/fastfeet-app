@@ -6,7 +6,7 @@ import { FormHandles } from '@unform/core';
 import { useAuth } from '../../hooks/auth';
 
 import Input from '../../components/Input';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 
 import logoImg from '../../assets/Logo.png';
 import ffLogoImg from '../../assets/FF.png';
@@ -103,4 +103,4 @@ const SignIn: React.FC = () => {
     </Container>
   );
 };
-export default SignIn;
+export { SignIn };

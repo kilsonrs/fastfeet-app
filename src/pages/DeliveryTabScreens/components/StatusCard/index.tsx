@@ -1,4 +1,6 @@
 import React from 'react';
+import { IDelivery } from '../../../../dtos/IDelivery';
+import { capitelizeWord } from '../../../../utils/capitelizeWord';
 
 import {
   Container,
@@ -11,7 +13,14 @@ import {
   InfoStatus,
 } from './styles';
 
-const StatusCard: React.FC = () => {
+interface IDeliveryStatus {
+  delivery: IDelivery;
+}
+
+const StatusCard: React.FC<IDeliveryStatus> = ({ delivery }) => {
+  const { created_at, start_date, end_date, status } = delivery;
+  const capitalizedStatus = capitelizeWord(status);
+
   return (
     <Container>
       <DataContent>
@@ -21,19 +30,19 @@ const StatusCard: React.FC = () => {
       <InfoContainer>
         <InfoContent>
           <InfoTitle>STATUS</InfoTitle>
-          <InfoStatus>Aguardando</InfoStatus>
+          <InfoStatus>{capitalizedStatus}</InfoStatus>
           <InfoTitle>DATA DE RETIRADA</InfoTitle>
-          <InfoStatus>--/--/----</InfoStatus>
+          <InfoStatus>{start_date || '--/--/----'}</InfoStatus>
         </InfoContent>
         <InfoContent>
           <InfoTitle>POSTADO EM</InfoTitle>
-          <InfoStatus>01/07/2020</InfoStatus>
+          <InfoStatus>{created_at}</InfoStatus>
           <InfoTitle>DATA DE ENTREGA</InfoTitle>
-          <InfoStatus>--/--/----</InfoStatus>
+          <InfoStatus>{end_date || '--/--/----'}</InfoStatus>
         </InfoContent>
       </InfoContainer>
     </Container>
   );
 };
 
-export default StatusCard;
+export { StatusCard };

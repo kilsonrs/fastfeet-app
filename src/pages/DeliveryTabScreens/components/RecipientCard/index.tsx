@@ -1,4 +1,5 @@
 import React from 'react';
+import { IRecipient } from '../../../../dtos/IRecipient';
 
 import {
   Container,
@@ -11,7 +12,12 @@ import {
   AddressContent,
 } from './styles';
 
-const RecipientCard: React.FC = () => {
+interface IRecipientProps {
+  recipient: IRecipient;
+}
+
+const RecipientCard: React.FC<IRecipientProps> = ({ recipient }) => {
+  const fullAddress = `${recipient.street}, ${recipient.number} \n${recipient.neighborhood}, ${recipient.uf} \n${recipient.zip_code}`;
   return (
     <Container>
       <DataContent>
@@ -20,16 +26,14 @@ const RecipientCard: React.FC = () => {
       </DataContent>
       <RecipientContent>
         <Title>DESTINATÁRIO</Title>
-        <RecipientData>Diego Fernandes</RecipientData>
+        <RecipientData>{recipient.name}</RecipientData>
       </RecipientContent>
       <AddressContent>
         <Title>ENDEREÇO</Title>
-        <RecipientData>
-          {'Rua Guilherme Gemballa, 260 \nJardim América, SC \n89 168-000'}
-        </RecipientData>
+        <RecipientData>{fullAddress}</RecipientData>
       </AddressContent>
     </Container>
   );
 };
 
-export default RecipientCard;
+export { RecipientCard };
