@@ -1,36 +1,41 @@
 import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { useAuth } from '../../../../hooks/auth';
+import { SearchInput } from '../SearchInput';
 
-import {
-  Container,
-  ProfileContent,
-  ProfileText,
-  PlaceContent,
-  HeaderContent,
-  Title,
-  PlaceText,
-  Logout,
-} from './styles';
+import { styles } from './styles';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  headerStyle: any;
+  profileStyle: any;
+}
+
+const Header: React.FC<HeaderProps> = ({ headerStyle, profileStyle }) => {
   const { signOut, user } = useAuth();
   return (
-    <Container>
-      <ProfileContent>
-        <ProfileText>{`Bem vindo, \n${user.name}`}</ProfileText>
-        <Logout onPress={() => signOut()}>
+    <Animated.View style={[styles.container, headerStyle]}>
+      <Animated.View style={[styles.profileContent, profileStyle]}>
+        <Text style={styles.profileText}>{`Bem vindo, \n${user.name}`}</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={() => signOut()}>
           <Icon name="logout" size={24} color="#ffc042" />
-        </Logout>
-      </ProfileContent>
-      <HeaderContent>
-        <Title>Entregas</Title>
-        <PlaceContent>
+        </TouchableOpacity>
+      </Animated.View>
+
+      <View style={styles.headerContent}>
+        <Text style={styles.headerTitle}>Entregas</Text>
+
+        <View style={styles.placeContent}>
           <Icon name="place" size={24} color="#ffc042" />
-          <PlaceText>São Paulo</PlaceText>
-        </PlaceContent>
-      </HeaderContent>
-    </Container>
+          <Text style={styles.placeText}>São Paulo</Text>
+        </View>
+      </View>
+
+      <SearchInput />
+    </Animated.View>
   );
 };
 

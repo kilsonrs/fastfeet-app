@@ -1,51 +1,59 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-export const Container = styled.View`
-  height: 175px;
-  background: #4c33cc;
-`;
+export const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: 184,
+    backgroundColor: '#4c33cc',
+    justifyContent: 'flex-end',
+    position: 'absolute',
+    elevation: 1,
+  },
+  profileContent: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    height: 76,
+    position: 'absolute',
+    top: 0,
+  },
+  profileText: {
+    fontFamily: 'Inter-Regular',
+    fontSize: 15,
+    color: '#d5ccff',
+    marginLeft: 24,
+  },
+  logoutButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginRight: 24,
+    marginLeft: 'auto',
+  },
+  headerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    width: '100%',
+    position: 'absolute',
+    bottom: 60,
+  },
+  headerTitle: {
+    fontFamily: 'RobotoCondensed-Bold',
+    fontSize: 32,
+    color: '#fff',
+    marginRight: 24,
+  },
 
-export const ProfileContent = styled.View`
-  flex-direction: row;
-  align-items: center;
-  height: 76px;
-`;
-
-export const ProfileText = styled.Text`
-  font-family: 'Inter-Regular';
-  font-size: 15px;
-  color: #d5ccff;
-  margin-left: 24px;
-`;
-
-export const Logout = styled.TouchableOpacity`
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 24px;
-  margin-left: auto;
-`;
-
-export const Title = styled.Text`
-  font-family: 'RobotoCondensed-Bold';
-  font-size: 32px;
-  color: #fff;
-  margin-left: 24px;
-`;
-
-export const HeaderContent = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const PlaceContent = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin: 0 24px 0 auto;
-`;
-
-export const PlaceText = styled.Text`
-  font-family: 'Inter-Regular';
-  font-size: 15px;
-  color: #d5ccff;
-  margin-left: 8px;
-`;
+  placeContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // marginLeft: 'auto',
+  },
+  placeText: {
+    fontFamily: 'Inter-Regular',
+    fontSize: 15,
+    color: '#d5ccff',
+    marginLeft: 8,
+  },
+});
