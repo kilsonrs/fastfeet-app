@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { DeliveryTabScreens } from '../pages/DeliveryTabScreens';
-import { Details } from '../pages/DeliveryTabScreens/Details';
+import { DeliveryTabScreens } from '../pages/delivery';
+import { Details } from '../pages/delivery/Details';
 
 const App = createStackNavigator();
 

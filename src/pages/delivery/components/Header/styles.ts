@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
   },
   profileContent: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '100%',
     alignItems: 'center',
     height: 76,
@@ -27,7 +28,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginRight: 24,
-    marginLeft: 'auto',
   },
   headerContent: {
     flexDirection: 'row',

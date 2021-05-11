@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -20,7 +22,11 @@ const Header: React.FC<HeaderProps> = ({ headerStyle, profileStyle }) => {
     <Animated.View style={[styles.container, headerStyle]}>
       <Animated.View style={[styles.profileContent, profileStyle]}>
         <Text style={styles.profileText}>{`Bem vindo, \n${user.name}`}</Text>
-        <TouchableOpacity style={styles.logoutButton} onPress={() => signOut()}>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          activeOpacity={0.6}
+          onPress={() => signOut()}
+        >
           <Icon name="logout" size={24} color="#ffc042" />
         </TouchableOpacity>
       </Animated.View>

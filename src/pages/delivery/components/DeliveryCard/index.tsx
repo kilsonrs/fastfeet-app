@@ -3,12 +3,12 @@ import React from 'react';
 import { Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Package from '../../assets/Package.png';
-import Waiting from '../../assets/Waiting.png';
-import Picked from '../../assets/Picked.png';
-import Delivered from '../../assets/Delivered.png';
+import Package from '../../../../assets/Package.png';
+import Waiting from '../../../../assets/Waiting.png';
+import Picked from '../../../../assets/Picked.png';
+import Delivered from '../../../../assets/Delivered.png';
 
-import { Card } from '../Card';
+import { Card } from '../../../../components/Card';
 
 import {
   Container,
@@ -20,7 +20,7 @@ import {
   DetailButtonText,
   Content,
 } from './styles';
-import { IDelivery } from '../../dtos/IDelivery';
+import { IDelivery } from '../../../../dtos/IDelivery';
 
 interface DeliveryCardProps {
   delivery: IDelivery;

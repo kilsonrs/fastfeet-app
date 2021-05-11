@@ -11,10 +11,13 @@ const DeliveryTabScreens: React.FC = () => {
     <DeliveryTab.Navigator
       tabBarOptions={{
         keyboardHidesTabBar: true,
-        style: { height: 54 },
+        style: { height: 57 },
+
         tabStyle: {
           justifyContent: 'center',
         },
+        activeTintColor: '#4C33CC',
+        inactiveTintColor: '#6F6C80',
         labelStyle: {
           fontFamily: 'Inter-Medium',
           fontSize: 15,

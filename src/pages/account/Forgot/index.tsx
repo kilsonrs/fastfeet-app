@@ -15,11 +15,14 @@ import {
   FFLogo,
   FFBackground,
 } from './styles';
-import logoImg from '../../assets/Logo.png';
-import ffLogoImg from '../../assets/FF.png';
-import arrowLeft from '../../assets/ArrowLeft.png';
 
-const RecoveryPassword: React.FC = () => {
+// import logotipoImg from '../../assets/Logotipo.png';
+import logoImg from '../../../assets/Logo.png';
+import ffLogoImg from '../../../assets/FF.png';
+
+import arrowLeft from '../../../assets/ArrowLeft.png';
+
+const Forgot: React.FC = () => {
   const navigation = useNavigation();
 
   const handleGoBack = useCallback(() => {
@@ -28,8 +31,8 @@ const RecoveryPassword: React.FC = () => {
 
   return (
     <Container>
-      <FFLogo source={logoImg} />
       <FFBackground source={ffLogoImg} />
+      <FFLogo source={logoImg} />
       <RecoveryContent>
         <RecoveryMessageHighlighted>Esqueceu</RecoveryMessageHighlighted>
         <RecoveryMessage>sua senha?</RecoveryMessage>
@@ -52,4 +55,4 @@ const RecoveryPassword: React.FC = () => {
     </Container>
   );
 };
-export { RecoveryPassword };
+export { Forgot };

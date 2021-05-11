@@ -1,22 +1,19 @@
 import styled from 'styled-components/native';
 
+import Animated from 'react-native-reanimated';
+
 export const Container = styled.View`
   flex: 1;
-  justify-content: space-around;
   background-color: #4c33cc;
-  padding: 0 32px;
+  width: 100%;
+  padding: 32px;
+  elevation: 1;
 `;
 
-export const FFLogo = styled.Image`
-  margin-top: 47px;
-`;
-
-export const FFBackground = styled.Image`
+export const FFBackground = styled(Animated.Image)`
   position: absolute;
-  top: -6px;
+  top: 0;
 `;
-
-export const WelcomeContent = styled.View``;
 
 export const WelcomeMessageHighlighted = styled.Text`
   font-family: 'RobotoCondensed-Bold';
@@ -28,43 +25,38 @@ export const WelcomeMessage = styled.Text`
   font-family: 'RobotoCondensed-Bold';
   font-size: 48px;
   color: #fff;
+  margin-bottom: 16px;
 `;
 
 export const ActionMessage = styled.Text`
   font-family: 'Inter-Regular';
   font-size: 15px;
-  margin-top: 16px;
   color: #d4ccff;
+  margin-bottom: 64px;
 `;
 
-// export const Form = styled.View`
-//   margin-bottom: 44px;
-//   background-color: transparent;
-// `;
-
-export const RememberContent = styled.View`
+export const FormOptionsContent = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin: 18px 0 26px;
-  background-color: transparent;
+  margin: 26px 0;
 `;
 
 export const RememberMeText = styled.Text`
   font-family: 'Inter-Regular';
   font-size: 13px;
   color: #d4ccff;
+  margin-left: 12px;
 `;
 
-export const RememberPasswordButton = styled.TouchableOpacity`
+export const ForgotPasswordButton = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 18px 0 26px;
   background-color: transparent;
+  margin-left: auto;
 `;
 
-export const RememberPasswordButtonText = styled.Text`
+export const ForgotPasswordButtonText = styled.Text`
   font-family: 'Inter-Regular';
   font-size: 13px;
   color: #d4ccff;

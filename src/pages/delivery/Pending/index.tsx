@@ -12,8 +12,8 @@ import api from '../../../services/api';
 
 import { Header } from '../components/Header';
 
-import { DeliveryCard } from '../../../components/DeliveryCard';
-import { TotalListItems } from '../../../components/TotalListItems';
+import { DeliveryCard } from '../components/DeliveryCard';
+import { TotalListItems } from '../components/TotalListItems';
 
 import { IDelivery } from '../../../dtos/IDelivery';
 
