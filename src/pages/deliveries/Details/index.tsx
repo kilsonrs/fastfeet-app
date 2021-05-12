@@ -1,7 +1,8 @@
 import React from 'react';
-import { useRoute } from '@react-navigation/native';
-import { RecipientCard } from '../components/RecipientCard';
-import { StatusCard } from '../components/StatusCard';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Alert } from 'react-native';
+import { RecipientCard } from '../../../components/RecipientCard';
+import { StatusCard } from '../../../components/StatusCard';
 import { Button } from '../../../components/Button';
 
 import { Container } from './styles';
@@ -14,6 +15,7 @@ interface DeliveryParams {
 
 const Details: React.FC = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const { delivery, fromPage } = route.params as DeliveryParams;
   return (
     <Container>
@@ -21,6 +23,10 @@ const Details: React.FC = () => {
       <StatusCard delivery={delivery} />
       {fromPage === 'Pending' && (
         <Button
+          onPress={() => {
+            Alert.alert('Bom trabalho!', 'Registramos sua retirada.');
+            navigation.goBack();
+          }}
           title={
             delivery.status === 'pendente'
               ? 'Retirar pacote'

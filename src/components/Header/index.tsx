@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { useAuth } from '../../../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 import { SearchInput } from '../SearchInput';
 
 import { styles } from './styles';
@@ -14,9 +14,14 @@ import { styles } from './styles';
 interface HeaderProps {
   headerStyle: any;
   profileStyle: any;
+  handleSearchNeighborhood: (neighborhood: string | null) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ headerStyle, profileStyle }) => {
+const Header: React.FC<HeaderProps> = ({
+  headerStyle,
+  profileStyle,
+  handleSearchNeighborhood,
+}) => {
   const { signOut, user } = useAuth();
   return (
     <Animated.View style={[styles.container, headerStyle]}>
@@ -39,8 +44,7 @@ const Header: React.FC<HeaderProps> = ({ headerStyle, profileStyle }) => {
           <Text style={styles.placeText}>São Paulo</Text>
         </View>
       </View>
-
-      <SearchInput />
+      <SearchInput handleSearchNeighborhood={handleSearchNeighborhood} />
     </Animated.View>
   );
 };

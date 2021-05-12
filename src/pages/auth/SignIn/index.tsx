@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -83,7 +84,6 @@ const SignIn: React.FC = () => {
   const toggleKeyboardListeners = useCallback(() => {
     Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
     Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-
     return () => {
       Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
       Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
@@ -100,7 +100,6 @@ const SignIn: React.FC = () => {
   useEffect(() => {
     startAnimations();
     toggleKeyboardListeners();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSignIn = useCallback(

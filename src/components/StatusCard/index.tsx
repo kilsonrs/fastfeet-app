@@ -1,6 +1,6 @@
 import React from 'react';
-import { IDelivery } from '../../../../dtos/IDelivery';
-import { capitelizeWord } from '../../../../utils/capitelizeWord';
+import { IDelivery } from '../../dtos/IDelivery';
+import { capitelizeWord } from '../../utils/capitelizeWord';
 
 import {
   Container,

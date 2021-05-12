@@ -1,7 +1,13 @@
 export default {
+  neighborhoods: [
+    { id: '1', name: 'Centro' },
+    { id: '2', name: 'Diadema' },
+    { id: '3', name: 'Jardim America' },
+    { id: '4', name: 'Jardim Palmeiras' },
+  ],
   deliveries: [
     {
-      id: 1,
+      id: '1',
       status: 'entregue',
       package_name: 'Pacote 01',
       start_date: '2021-03-16T18:29:50.132Z',
@@ -25,7 +31,7 @@ export default {
       },
     },
     {
-      id: 2,
+      id: '2',
       status: 'pendente',
       package_name: 'Pacote 02',
       start_date: null,
@@ -48,7 +54,7 @@ export default {
       },
     },
     {
-      id: 3,
+      id: '3',
       status: 'retirada',
       package_name: 'Pacote 03',
       start_date: '2021-03-16T18:29:50.132Z',
@@ -71,7 +77,7 @@ export default {
       },
     },
     {
-      id: 4,
+      id: '4',
       status: 'cancelada',
       package_name: 'Pacote 04',
       start_date: '2021-03-16T18:29:50.132Z',
@@ -86,7 +92,7 @@ export default {
         name: 'Frédéric Chopin',
         street: 'Rua Paraíba',
         number: 1729,
-        neighborhood: 'Residencial Boa Vista',
+        neighborhood: 'Jardim America',
         city: 'Rio Claro',
         state: 'São Paulo',
         uf: 'SP',

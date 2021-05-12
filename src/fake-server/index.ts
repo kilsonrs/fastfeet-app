@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { createServer, Model } from 'miragejs';
 import { IDelivery } from '../dtos/IDelivery';
+import { parseString } from '../utils/parseString';
 
 import seeds from './seeds';
 
 export function makeServer() {
   return createServer({
     models: {
+      neighborhoods: Model,
       deliverers: Model,
       recipients: Model,
       deliveries: Model,
@@ -30,8 +32,18 @@ export function makeServer() {
         };
       });
 
+      this.get('/neighborhoods', async (_, request) => {
+        const { neighborhood } = request.queryParams;
+        return this.db.neighborhoods.where(({ name }: { name: string }) =>
+          parseString(name).includes(parseString(neighborhood)),
+        );
+      });
+
       this.get('/deliverers/:id/deliveries', async (_, request) => {
-        const { completed } = request.queryParams;
+        const { completed, neighborhood } = request.queryParams;
+
+        const neighborhoodFilter = (delivery: IDelivery) =>
+          delivery.recipient.neighborhood === neighborhood;
 
         const isCompletedFilter = (delivery: IDelivery) =>
           delivery.end_date !== null;
@@ -39,10 +51,22 @@ export function makeServer() {
         const isPendingFilter = (delivery: IDelivery) =>
           delivery.end_date === null;
 
+        let deliveries;
+
         if (completed) {
-          return this.db.deliveries.where(isCompletedFilter);
+          deliveries = this.db.deliveries.where(isCompletedFilter);
+          if (neighborhood) {
+            return deliveries.filter(neighborhoodFilter);
+          }
+          return deliveries;
         }
-        return this.db.deliveries.where(isPendingFilter);
+
+        deliveries = this.db.deliveries.where(isPendingFilter);
+
+        if (neighborhood) {
+          return deliveries.filter(neighborhoodFilter);
+        }
+        return deliveries;
       });
 
       this.patch('/deliveries/:id', async (_, request) => {

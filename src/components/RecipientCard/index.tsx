@@ -1,5 +1,5 @@
 import React from 'react';
-import { IRecipient } from '../../../../dtos/IRecipient';
+import { IRecipient } from '../../dtos/IRecipient';
 
 import {
   Container,

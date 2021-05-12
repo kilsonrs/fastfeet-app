@@ -6,6 +6,11 @@ export const Container = styled.View`
   justify-content: space-between;
   align-items: center;
   height: 184px;
+
+  background: #fff;
+  border-radius: 4px;
+  margin: 0 24px 16px;
+  elevation: 1;
 `;
 
 export const Content = styled.View`

@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#4c33cc',
     justifyContent: 'flex-end',
     position: 'absolute',
-    elevation: 1,
+    zIndex: 1,
   },
   profileContent: {
     flexDirection: 'row',

@@ -10,10 +10,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import api from '../../../services/api';
 
-import { Header } from '../components/Header';
+import { Header } from '../../../components/Header';
 
-import { DeliveryCard } from '../components/DeliveryCard';
-import { TotalListItems } from '../components/TotalListItems';
+import { DeliveryCard } from '../../../components/DeliveryCard';
+import { TotalListItems } from '../../../components/TotalListItems';
 
 import { IDelivery } from '../../../dtos/IDelivery';
 
@@ -22,8 +22,12 @@ import { parseDate } from '../../../utils/parseDate';
 import { Container, Content } from './styles';
 
 const Pending: React.FC = () => {
-  const [deliveries, setDeliveries] = useState<IDelivery[]>([]);
   const { navigate } = useNavigation();
+
+  const [deliveries, setDeliveries] = useState<IDelivery[]>([]);
+  const [neighborhoodFilter, setNeighborhoodFilter] = useState<string | null>(
+    null,
+  );
 
   const handlePackageDetail = useCallback(
     delivery => {
@@ -34,11 +38,16 @@ const Pending: React.FC = () => {
 
   useEffect(() => {
     async function loadDeliveries() {
-      const response = await api.get('/deliverers/id/deliveries');
+      const response = await api.get('/deliverers/id/deliveries', {
+        params: {
+          neighborhood: neighborhoodFilter,
+        },
+      });
       setDeliveries(response.data);
     }
+
     loadDeliveries();
-  }, []);
+  }, [neighborhoodFilter]);
 
   const deliveriesFormatted: IDelivery[] = useMemo(() => {
     return deliveries.map(delivery => ({
@@ -47,6 +56,13 @@ const Pending: React.FC = () => {
       start_date: delivery.start_date ? parseDate(delivery.start_date) : '',
     }));
   }, [deliveries]);
+
+  const handleSearchNeighborhood = useCallback(
+    (neighborhood: string | null) => {
+      setNeighborhoodFilter(neighborhood);
+    },
+    [],
+  );
 
   const scrollY = useSharedValue(0);
 
@@ -78,13 +94,14 @@ const Pending: React.FC = () => {
       <Header
         headerStyle={headerAnimationStyle}
         profileStyle={profileAnimationStyle}
+        handleSearchNeighborhood={handleSearchNeighborhood}
       />
       <Content>
         <Animated.ScrollView
           onScroll={scrollHandler}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
-          style={{ marginTop: 0 }}
+          style={{ zIndex: 0 }}
           contentContainerStyle={{
             paddingTop: 212,
           }}

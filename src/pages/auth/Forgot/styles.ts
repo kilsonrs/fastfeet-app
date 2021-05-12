@@ -1,3 +1,4 @@
+import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -7,16 +8,12 @@ export const Container = styled.View`
   padding: 0 32px;
 `;
 
-export const FFLogo = styled.Image`
-  margin-top: 87px;
-`;
-
-export const FFBackground = styled.Image`
+export const FFBackground = styled(Animated.Image)`
   position: absolute;
-  top: -6px;
+  top: 0;
 `;
 
-export const RecoveryContent = styled.View``;
+export const RecoveryContent = styled(Animated.View)``;
 
 export const RecoveryMessageHighlighted = styled.Text`
   font-family: 'RobotoCondensed-Bold';
@@ -38,7 +35,7 @@ export const SecutiryMessage = styled.Text`
   color: #d4ccff;
 `;
 
-export const AddressContent = styled.View``;
+export const AddressContent = styled(Animated.View)``;
 
 export const AddressTitle = styled.Text`
   font-family: 'Inter-Bold';

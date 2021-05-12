@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Animated, {
   Extrapolate,
@@ -10,10 +10,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import api from '../../../services/api';
 
-import { Header } from '../components/Header';
+import { Header } from '../../../components/Header';
 
-import { DeliveryCard } from '../components/DeliveryCard';
-import { TotalListItems } from '../components/TotalListItems';
+import { DeliveryCard } from '../../../components/DeliveryCard';
+import { TotalListItems } from '../../../components/TotalListItems';
 
 import { IDelivery } from '../../../dtos/IDelivery';
 
@@ -21,13 +21,18 @@ import { parseDate } from '../../../utils/parseDate';
 
 import { Container, Content } from './styles';
 
-const History: React.FC = () => {
-  const [deliveries, setDeliveries] = useState<IDelivery[]>([]);
+const Completed: React.FC = () => {
   const { navigate } = useNavigation();
+  const { name } = useRoute();
+
+  const [deliveries, setDeliveries] = useState<IDelivery[]>([]);
+  const [neighborhoodFilter, setNeighborhoodFilter] = useState<string | null>(
+    null,
+  );
 
   const handlePackageDetail = useCallback(
     delivery => {
-      navigate('Details', { delivery, fromPage: 'History' });
+      navigate('Details', { delivery, fromPage: 'Completed' });
     },
     [navigate],
   );
@@ -35,21 +40,31 @@ const History: React.FC = () => {
   useEffect(() => {
     async function loadDeliveries() {
       const response = await api.get('/deliverers/id/deliveries', {
-        params: { completed: true },
+        params: {
+          neighborhood: neighborhoodFilter,
+          completed: true,
+        },
       });
       setDeliveries(response.data);
     }
+
     loadDeliveries();
-  }, []);
+  }, [neighborhoodFilter, name]);
 
   const deliveriesFormatted: IDelivery[] = useMemo(() => {
     return deliveries.map(delivery => ({
       ...delivery,
       created_at: parseDate(delivery.created_at),
-      start_date: parseDate(delivery.start_date),
-      end_date: parseDate(delivery.end_date),
+      start_date: delivery.start_date ? parseDate(delivery.start_date) : '',
     }));
   }, [deliveries]);
+
+  const handleSearchNeighborhood = useCallback(
+    (neighborhood: string | null) => {
+      setNeighborhoodFilter(neighborhood);
+    },
+    [],
+  );
 
   const scrollY = useSharedValue(0);
 
@@ -81,13 +96,14 @@ const History: React.FC = () => {
       <Header
         headerStyle={headerAnimationStyle}
         profileStyle={profileAnimationStyle}
+        handleSearchNeighborhood={handleSearchNeighborhood}
       />
       <Content>
         <Animated.ScrollView
           onScroll={scrollHandler}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
-          style={{ marginTop: 0 }}
+          style={{ zIndex: 0 }}
           contentContainerStyle={{
             paddingTop: 212,
           }}
@@ -106,4 +122,4 @@ const History: React.FC = () => {
   );
 };
 
-export { History };
+export { Completed };
