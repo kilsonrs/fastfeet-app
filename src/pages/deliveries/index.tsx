@@ -43,8 +43,10 @@ const DeliveryTabScreens: React.FC = () => {
                     width: screenWidth / 2,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTopWidth: screen === 'Pending' ? 4 : 0,
-                    borderTopColor: '#FFC042',
+                    backgroundColor: screen === 'Pending' ? '#fff' : '#F7F5FA',
+                    borderTopWidth: screen === 'Pending' ? 4 : 1,
+                    borderTopColor:
+                      screen === 'Pending' ? '#FFC042' : '#DAD7E0',
                   }}
                 >
                   <Text
@@ -80,8 +82,11 @@ const DeliveryTabScreens: React.FC = () => {
                     width: screenWidth / 2,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTopWidth: screen === 'Completed' ? 4 : 0,
-                    borderTopColor: '#FFC042',
+                    backgroundColor:
+                      screen === 'Completed' ? '#fff' : '#F7F5FA',
+                    borderTopWidth: screen === 'Completed' ? 4 : 1,
+                    borderTopColor:
+                      screen === 'Completed' ? '#FFC042' : '#DAD7E0',
                   }}
                 >
                   <Text
