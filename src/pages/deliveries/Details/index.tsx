@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Alert } from 'react-native';
 import { RecipientCard } from '../../../components/RecipientCard';
 import { StatusCard } from '../../../components/StatusCard';
 import { Button } from '../../../components/Button';
@@ -17,22 +16,33 @@ const Details: React.FC = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { delivery, fromPage } = route.params as DeliveryParams;
+  const { status, recipient } = delivery;
+
+  const buttonTitle =
+    status === 'pendente' ? 'Retirar pacote' : 'Confirmar entrega';
+
+  const navigationParams = {
+    type: 'success',
+    title: 'Pacote retirado.',
+    description: 'Só falta entregar :)',
+    nextPage: fromPage,
+  };
+
+  const handleButtonPress = useCallback(() => {
+    if (status === 'pendente') {
+      navigation.navigate('Modal', navigationParams);
+    }
+    if (status === 'retirada') {
+      navigation.navigate('Finalize');
+    }
+  }, [navigation, navigationParams, status]);
+
   return (
     <Container>
-      <RecipientCard recipient={delivery.recipient} />
+      <RecipientCard recipient={recipient} />
       <StatusCard delivery={delivery} />
       {fromPage === 'Pending' && (
-        <Button
-          onPress={() => {
-            Alert.alert('Bom trabalho!', 'Registramos sua retirada.');
-            navigation.goBack();
-          }}
-          title={
-            delivery.status === 'pendente'
-              ? 'Retirar pacote'
-              : 'Confirmar entrega'
-          }
-        />
+        <Button onPress={handleButtonPress} title={buttonTitle} />
       )}
     </Container>
   );

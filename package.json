@@ -28,6 +28,7 @@
     "miragejs": "^0.1.41",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-camera": "^3.43.8",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-reanimated": "^2.0.0",
     "react-native-safe-area-context": "^3.1.9",

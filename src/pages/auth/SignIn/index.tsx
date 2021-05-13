@@ -107,10 +107,11 @@ const SignIn: React.FC = () => {
       try {
         await signIn({ cpf: data.cpf, password: data.password });
       } catch {
-        Alert.alert(
-          'Erro na autenticação',
-          'Ocorreu um erro ao fazer login. Cheque as credenciais.',
-        );
+        navigation.navigate('Modal', {
+          type: 'error',
+          title: 'Senha ou CPF incorretos.',
+          nextPage: 'SignIn',
+        });
       }
     },
     [signIn],

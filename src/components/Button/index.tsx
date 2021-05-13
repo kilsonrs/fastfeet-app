@@ -5,11 +5,17 @@ import { Container, ButtonText } from './styles';
 
 interface ButtonProps extends RectButtonProperties {
   title: string;
+  disabled?: boolean;
   onPress: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress, ...rest }) => (
-  <Container onPress={onPress} {...rest}>
+const Button: React.FC<ButtonProps> = ({
+  title,
+  onPress,
+  disabled = false,
+  ...rest
+}) => (
+  <Container disabled={disabled} onPress={onPress} {...rest}>
     <ButtonText>{title}</ButtonText>
   </Container>
 );

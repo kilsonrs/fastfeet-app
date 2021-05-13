@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import { Dimensions, Text } from 'react-native';
+
 import { Pending } from './Pending';
 import { Completed } from './Completed';
 
@@ -11,7 +12,8 @@ const DeliveryTab = createBottomTabNavigator();
 
 const DeliveryTabScreens: React.FC = () => {
   const screenWidth = Dimensions.get('screen').width;
-  const [screen, setScreen] = useState('Pendentes');
+  const [screen, setScreen] = useState('Pending');
+
   return (
     <DeliveryTab.Navigator
       tabBarOptions={{
@@ -25,7 +27,7 @@ const DeliveryTabScreens: React.FC = () => {
       }}
     >
       <DeliveryTab.Screen
-        name="Pendentes"
+        name="Pending"
         component={Pending}
         options={({ navigation, route }) => {
           return {
@@ -41,7 +43,7 @@ const DeliveryTabScreens: React.FC = () => {
                     width: screenWidth / 2,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTopWidth: screen === 'Pendentes' ? 4 : 0,
+                    borderTopWidth: screen === 'Pending' ? 4 : 0,
                     borderTopColor: '#FFC042',
                   }}
                 >
@@ -50,7 +52,7 @@ const DeliveryTabScreens: React.FC = () => {
                       position: 'absolute',
                       fontFamily: 'Inter-Medium',
                       fontSize: 15,
-                      color: screen === 'Pendentes' ? '#4C33CC' : '#6F6C80',
+                      color: screen === 'Pending' ? '#4C33CC' : '#6F6C80',
                     }}
                   >
                     Pendentes
@@ -62,7 +64,7 @@ const DeliveryTabScreens: React.FC = () => {
         }}
       />
       <DeliveryTab.Screen
-        name="Feitas"
+        name="Completed"
         component={Completed}
         options={({ navigation, route }) => {
           return {
@@ -78,7 +80,7 @@ const DeliveryTabScreens: React.FC = () => {
                     width: screenWidth / 2,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTopWidth: screen === 'Feitas' ? 4 : 0,
+                    borderTopWidth: screen === 'Completed' ? 4 : 0,
                     borderTopColor: '#FFC042',
                   }}
                 >
@@ -87,7 +89,7 @@ const DeliveryTabScreens: React.FC = () => {
                       position: 'absolute',
                       fontFamily: 'Inter-Medium',
                       fontSize: 15,
-                      color: screen === 'Feitas' ? '#4C33CC' : '#6F6C80',
+                      color: screen === 'Completed' ? '#4C33CC' : '#6F6C80',
                     }}
                   >
                     Feitas
