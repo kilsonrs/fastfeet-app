@@ -1,4 +1,3 @@
-import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -14,12 +13,15 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
+  flex: 1;
   width: 100%;
   justify-content: space-between;
-  padding: 16px;
+
+  padding: 16px 16px 0;
 `;
 
 export const PackageContent = styled.View`
+  margin-bottom: 16px;
   flex-direction: row;
   align-items: center;
 `;
@@ -42,7 +44,9 @@ export const PackageDate = styled.Text.attrs({
   margin-left: auto;
 `;
 
-export const DetailButton = styled(RectButton)`
+export const DetailButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.8,
+})`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

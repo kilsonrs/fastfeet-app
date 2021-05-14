@@ -52,7 +52,7 @@ const DeliveryTabScreens: React.FC = () => {
                   <Text
                     style={{
                       position: 'absolute',
-                      fontFamily: 'Inter-Medium',
+                      fontFamily: 'Inter-Regular',
                       fontSize: 15,
                       color: screen === 'Pending' ? '#4C33CC' : '#6F6C80',
                     }}
@@ -92,7 +92,7 @@ const DeliveryTabScreens: React.FC = () => {
                   <Text
                     style={{
                       position: 'absolute',
-                      fontFamily: 'Inter-Medium',
+                      fontFamily: 'Inter-Regular',
                       fontSize: 15,
                       color: screen === 'Completed' ? '#4C33CC' : '#6F6C80',
                     }}
