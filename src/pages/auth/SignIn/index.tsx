@@ -55,6 +55,8 @@ const SignIn: React.FC = () => {
   const { signIn } = useAuth();
 
   const backgroundOpacity = useSharedValue(0);
+  const backgroundPosition = useSharedValue(-40);
+
   const messageOpacity = useSharedValue(0);
   const logoOpacity = useSharedValue(0);
 
@@ -69,6 +71,7 @@ const SignIn: React.FC = () => {
 
   const backgroundStyle = useAnimatedStyle(() => ({
     opacity: backgroundOpacity.value,
+    left: backgroundPosition.value,
   }));
 
   const _keyboardDidShow = useCallback(() => {
@@ -91,10 +94,10 @@ const SignIn: React.FC = () => {
   }, [_keyboardDidShow, _keyboardDidHide]);
 
   const startAnimations = useCallback(() => {
-    logoOpacity.value = withTiming(1, { duration: 1000 }, () => {
-      messageOpacity.value = withTiming(1, { duration: 1500 });
-      backgroundOpacity.value = withTiming(1, { duration: 4000 });
-    });
+    logoOpacity.value = withTiming(1, { duration: 500 });
+    messageOpacity.value = withTiming(1, { duration: 1200 });
+    backgroundOpacity.value = withTiming(1, { duration: 3000 });
+    backgroundPosition.value = withTiming(0, { duration: 3200 });
   }, [logoOpacity.value, messageOpacity.value, backgroundOpacity.value]);
 
   useEffect(() => {
@@ -106,6 +109,7 @@ const SignIn: React.FC = () => {
     async (data: SignInFormData) => {
       try {
         await signIn({ cpf: data.cpf, password: data.password });
+        // throw new Error();
       } catch {
         navigation.navigate('Modal', {
           type: 'error',

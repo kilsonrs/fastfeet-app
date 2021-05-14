@@ -56,6 +56,7 @@ const Completed: React.FC = () => {
       ...delivery,
       created_at: parseDate(delivery.created_at),
       start_date: delivery.start_date ? parseDate(delivery.start_date) : '',
+      end_date: delivery.end_date ? parseDate(delivery.end_date) : '',
     }));
   }, [deliveries]);
 

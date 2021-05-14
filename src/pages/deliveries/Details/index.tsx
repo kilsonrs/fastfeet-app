@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RecipientCard } from '../../../components/RecipientCard';
 import { StatusCard } from '../../../components/StatusCard';
@@ -17,7 +17,6 @@ const Details: React.FC = () => {
   const navigation = useNavigation();
   const { delivery, fromPage } = route.params as DeliveryParams;
   const { status, recipient } = delivery;
-
   const buttonTitle =
     status === 'pendente' ? 'Retirar pacote' : 'Confirmar entrega';
 
@@ -37,11 +36,15 @@ const Details: React.FC = () => {
     }
   }, [navigation, navigationParams, status]);
 
+  const shoudShowButton = useMemo(() => {
+    return fromPage === 'Pending' && status !== 'cancelada';
+  }, [fromPage, status]);
+
   return (
     <Container>
       <RecipientCard recipient={recipient} />
       <StatusCard delivery={delivery} />
-      {fromPage === 'Pending' && (
+      {shoudShowButton && (
         <Button onPress={handleButtonPress} title={buttonTitle} />
       )}
     </Container>
