@@ -9,10 +9,7 @@ export function makeServer() {
   return createServer({
     models: {
       neighborhoods: Model,
-      deliverers: Model,
-      recipients: Model,
       deliveries: Model,
-      issues: Model,
     },
     seeds(server) {
       server.db.loadData(seeds);
@@ -71,16 +68,26 @@ export function makeServer() {
 
       this.patch('/deliveries/:id', async (_, request) => {
         const { params, requestBody } = request;
-        const deliverymanData = JSON.parse(requestBody);
+        const deliveryData = JSON.parse(requestBody);
 
-        const deliveryman = this.schema.findBy('deliverers', {
+        const delivery = this.schema.findBy('deliveries', {
           id: params.id,
         });
 
-        deliveryman?.update(deliverymanData);
-      });
+        const updateDelivery = {};
 
-      this.post('/deliveries/:id/issues');
+        if (deliveryData?.startDate) {
+          Object.assign(updateDelivery, {
+            start_date: deliveryData.startDate,
+          });
+        }
+        if (deliveryData?.endDate) {
+          Object.assign(updateDelivery, {
+            end_date: deliveryData.endDate,
+          });
+        }
+        delivery?.update(updateDelivery);
+      });
     },
   });
 }

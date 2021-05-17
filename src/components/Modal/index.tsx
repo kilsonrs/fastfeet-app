@@ -17,6 +17,7 @@ interface ModaProps {
   title: string;
   description?: string;
   nextPage: string;
+  deliveryUpdated: boolean;
 }
 
 const Modal: React.FC = () => {
@@ -27,7 +28,7 @@ const Modal: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate(nextPage);
+      navigation.navigate(nextPage, { deliveryUpdated: true });
     }, 2000);
   }, [navigation, nextPage]);
 
