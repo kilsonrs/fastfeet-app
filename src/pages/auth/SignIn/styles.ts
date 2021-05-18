@@ -48,7 +48,9 @@ export const RememberMeText = styled.Text`
   margin-left: 12px;
 `;
 
-export const ForgotPasswordButton = styled.TouchableOpacity`
+export const ForgotPasswordButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.7,
+})`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

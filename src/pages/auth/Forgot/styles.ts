@@ -50,7 +50,9 @@ export const AddressMessage = styled.Text`
   color: #d4ccff;
 `;
 
-export const GoBackButton = styled.TouchableOpacity`
+export const GoBackButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.7,
+})`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
