@@ -24,6 +24,8 @@ export const Icon = styled(MaterialIcon)`
   margin-right: 24px;
 `;
 
+export const ClearButton = styled.TouchableOpacity``;
+
 export const SearchResult = styled.View`
   position: absolute;
   background: #fff;
