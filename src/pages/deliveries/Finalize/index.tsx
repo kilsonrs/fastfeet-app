@@ -49,7 +49,7 @@ const Finalize: React.FC = () => {
       type: 'success',
       title: 'Foto enviada!',
       description: 'Pacote entregue.',
-      nextPage: 'Pending',
+      nextPage: 'Completed',
     };
     navigation.navigate('Modal', finalizeMessage);
   }, [navigation]);

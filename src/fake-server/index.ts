@@ -76,14 +76,16 @@ export function makeServer() {
 
         const updateDelivery = {};
 
-        if (deliveryData?.startDate) {
+        if (deliveryData?.start_date) {
           Object.assign(updateDelivery, {
-            start_date: deliveryData.startDate,
+            start_date: deliveryData.start_date,
+            status: 'retirada',
           });
         }
-        if (deliveryData?.endDate) {
+        if (deliveryData?.end_date) {
           Object.assign(updateDelivery, {
-            end_date: deliveryData.endDate,
+            end_date: deliveryData.end_date,
+            status: 'entregue',
           });
         }
         delivery?.update(updateDelivery);

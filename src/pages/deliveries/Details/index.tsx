@@ -1,26 +1,46 @@
 import React, { useCallback, useMemo } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Alert } from 'react-native';
 import { RecipientCard } from '../../../components/RecipientCard';
 import { StatusCard } from '../../../components/StatusCard';
 import { Button } from '../../../components/Button';
 
 import { Container } from './styles';
+import { useDelivery } from '../../../hooks/delivery';
 import { IDelivery } from '../../../dtos/IDelivery';
-import api from '../../../services/api';
+
+interface DeliveryDetails extends IDelivery {
+  created_at_formatted: string;
+  start_date_formatted: string;
+  end_date_formatted: string;
+}
 
 interface DeliveryParams {
-  delivery: IDelivery;
+  delivery: Omit<DeliveryDetails, 'start_date' | 'end_date' | 'created_at'>;
   fromPage: string;
 }
 
 const Details: React.FC = () => {
   const route = useRoute();
   const navigation = useNavigation();
+  const { pickDelivery, finalizeDelivery } = useDelivery();
   const { delivery, fromPage } = route.params as DeliveryParams;
-  const { status, recipient } = delivery;
+  const {
+    status,
+    recipient,
+    created_at_formatted,
+    start_date_formatted,
+    end_date_formatted,
+  } = delivery;
+
   const buttonTitle =
     status === 'pendente' ? 'Retirar pacote' : 'Confirmar entrega';
+
+  const deliveryStatus = {
+    status,
+    created_at_formatted,
+    start_date_formatted,
+    end_date_formatted,
+  };
 
   const navigationParams = {
     type: 'success',
@@ -29,37 +49,24 @@ const Details: React.FC = () => {
     nextPage: fromPage,
   };
 
-  const pickDelivery = useCallback(async () => {
-    try {
-      await api.patch(`/deliveries/${delivery.id}`, {
-        startDate: new Date(),
-      });
-    } catch {
-      Alert.alert('Houve um erro ao retirar a encomenda');
-    }
-  }, [delivery.id]);
-
-  const finalizeDelivery = useCallback(async () => {
-    try {
-      await api.patch(`/deliveries/${delivery.id}`, {
-        endDate: new Date(),
-      });
-    } catch {
-      Alert.alert('Houve um erro ao confirmar a entrega da encomenda');
-    }
-  }, [delivery.id]);
-
   const handleButtonPress = useCallback(async () => {
     if (status === 'pendente') {
-      await pickDelivery();
+      await pickDelivery(delivery.id);
       navigation.navigate('Modal', navigationParams);
     }
     if (status === 'retirada') {
-      await finalizeDelivery();
+      await finalizeDelivery(delivery.id);
 
       navigation.navigate('Finalize');
     }
-  }, [navigation, navigationParams, status, pickDelivery, finalizeDelivery]);
+  }, [
+    navigation,
+    navigationParams,
+    status,
+    pickDelivery,
+    finalizeDelivery,
+    delivery.id,
+  ]);
 
   const shoudShowButton = useMemo(() => {
     return fromPage === 'Pending' && status !== 'cancelada';
@@ -68,7 +75,7 @@ const Details: React.FC = () => {
   return (
     <Container>
       <RecipientCard recipient={recipient} />
-      <StatusCard delivery={delivery} />
+      <StatusCard delivery={deliveryStatus} />
       {shoudShowButton && (
         <Button onPress={handleButtonPress} title={buttonTitle} />
       )}

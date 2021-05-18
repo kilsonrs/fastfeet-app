@@ -4,10 +4,10 @@ interface IDelivery {
   id: string;
   status: 'pendente' | 'retirada' | 'cancelada' | 'entregue';
   package_name: string;
-  start_date?: string | null;
-  end_date?: string | null;
+  start_date?: Date | null;
+  end_date?: Date | null;
   signature: string;
-  created_at: string;
+  created_at: Date;
   deliveryman: {
     name: string;
     avatar_url?: string | null;

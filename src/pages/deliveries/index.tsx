@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -12,7 +12,6 @@ const DeliveryTab = createBottomTabNavigator();
 
 const DeliveryTabScreens: React.FC = () => {
   const screenWidth = Dimensions.get('screen').width;
-  const [screen, setScreen] = useState('Pending');
 
   return (
     <DeliveryTab.Navigator
@@ -31,22 +30,26 @@ const DeliveryTabScreens: React.FC = () => {
         component={Pending}
         options={({ navigation, route }) => {
           return {
-            tabBarButton: () => {
+            tabBarButton: tabParams => {
               return (
                 <TouchableWithoutFeedback
                   onPress={() => {
                     navigation.navigate(route.name);
-                    setScreen(route.name);
                   }}
                   style={{
                     flex: 1,
                     width: screenWidth / 2,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: screen === 'Pending' ? '#fff' : '#F7F5FA',
-                    borderTopWidth: screen === 'Pending' ? 4 : 1,
-                    borderTopColor:
-                      screen === 'Pending' ? '#FFC042' : '#DAD7E0',
+                    backgroundColor: tabParams.accessibilityState.selected
+                      ? '#fff'
+                      : '#F7F5FA',
+                    borderTopWidth: tabParams.accessibilityState.selected
+                      ? 4
+                      : 1,
+                    borderTopColor: tabParams.accessibilityState.selected
+                      ? '#FFC042'
+                      : '#DAD7E0',
                   }}
                 >
                   <Text
@@ -54,7 +57,9 @@ const DeliveryTabScreens: React.FC = () => {
                       position: 'absolute',
                       fontFamily: 'Inter-Regular',
                       fontSize: 15,
-                      color: screen === 'Pending' ? '#4C33CC' : '#6F6C80',
+                      color: tabParams.accessibilityState.selected
+                        ? '#4C33CC'
+                        : '#6F6C80',
                     }}
                   >
                     Pendentes
@@ -70,23 +75,26 @@ const DeliveryTabScreens: React.FC = () => {
         component={Completed}
         options={({ navigation, route }) => {
           return {
-            tabBarButton: () => {
+            tabBarButton: tabParams => {
               return (
                 <TouchableWithoutFeedback
                   onPress={() => {
                     navigation.navigate(route.name);
-                    setScreen(route.name);
                   }}
                   style={{
                     flex: 1,
                     width: screenWidth / 2,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor:
-                      screen === 'Completed' ? '#fff' : '#F7F5FA',
-                    borderTopWidth: screen === 'Completed' ? 4 : 1,
-                    borderTopColor:
-                      screen === 'Completed' ? '#FFC042' : '#DAD7E0',
+                    backgroundColor: tabParams.accessibilityState.selected
+                      ? '#fff'
+                      : '#F7F5FA',
+                    borderTopWidth: tabParams.accessibilityState.selected
+                      ? 4
+                      : 1,
+                    borderTopColor: tabParams.accessibilityState.selected
+                      ? '#FFC042'
+                      : '#DAD7E0',
                   }}
                 >
                   <Text
@@ -94,7 +102,9 @@ const DeliveryTabScreens: React.FC = () => {
                       position: 'absolute',
                       fontFamily: 'Inter-Regular',
                       fontSize: 15,
-                      color: screen === 'Completed' ? '#4C33CC' : '#6F6C80',
+                      color: tabParams.accessibilityState.selected
+                        ? '#4C33CC'
+                        : '#6F6C80',
                     }}
                   >
                     Feitas

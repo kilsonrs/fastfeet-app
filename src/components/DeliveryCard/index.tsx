@@ -16,8 +16,12 @@ import {
 import { IDelivery } from '../../dtos/IDelivery';
 import DeliveryProgress from '../DeliveryProgress';
 
+interface IDeliveryFormatted extends IDelivery {
+  created_at_formatted: string;
+}
+
 interface DeliveryCardProps {
-  delivery: IDelivery;
+  delivery: IDeliveryFormatted;
   onPress(): void;
 }
 
@@ -30,7 +34,7 @@ const DeliveryCard: React.FC<DeliveryCardProps> = ({ delivery, onPress }) => {
         <PackageContent>
           <PackageImage source={Package} />
           <PackageTitle numberOfLines={1}>{delivery.package_name}</PackageTitle>
-          <PackageDate>{delivery.created_at}</PackageDate>
+          <PackageDate>{delivery.created_at_formatted}</PackageDate>
         </PackageContent>
         <DeliveryProgress status={status} />
       </Content>

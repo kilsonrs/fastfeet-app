@@ -1,5 +1,4 @@
 import React from 'react';
-import { IDelivery } from '../../dtos/IDelivery';
 import { capitelizeWord } from '../../utils/capitelizeWord';
 
 import {
@@ -14,11 +13,23 @@ import {
 } from './styles';
 
 interface IDeliveryStatus {
-  delivery: IDelivery;
+  status: 'pendente' | 'retirada' | 'cancelada' | 'entregue';
+  created_at_formatted: string;
+  start_date_formatted: string;
+  end_date_formatted: string;
 }
 
-const StatusCard: React.FC<IDeliveryStatus> = ({ delivery }) => {
-  const { created_at, start_date, end_date, status } = delivery;
+interface IStatus {
+  delivery: IDeliveryStatus;
+}
+
+const StatusCard: React.FC<IStatus> = ({ delivery }) => {
+  const {
+    created_at_formatted,
+    start_date_formatted,
+    end_date_formatted,
+    status,
+  } = delivery;
   const capitalizedStatus = capitelizeWord(status);
 
   return (
@@ -32,13 +43,13 @@ const StatusCard: React.FC<IDeliveryStatus> = ({ delivery }) => {
           <InfoTitle>STATUS</InfoTitle>
           <InfoStatus>{capitalizedStatus}</InfoStatus>
           <InfoTitle>DATA DE RETIRADA</InfoTitle>
-          <InfoStatus>{start_date || '--/--/----'}</InfoStatus>
+          <InfoStatus>{start_date_formatted || '--/--/----'}</InfoStatus>
         </InfoContent>
         <InfoContent>
           <InfoTitle>POSTADO EM</InfoTitle>
-          <InfoStatus>{created_at}</InfoStatus>
+          <InfoStatus>{created_at_formatted}</InfoStatus>
           <InfoTitle>DATA DE ENTREGA</InfoTitle>
-          <InfoStatus>{end_date || '--/--/----'}</InfoStatus>
+          <InfoStatus>{end_date_formatted || '--/--/----'}</InfoStatus>
         </InfoContent>
       </InfoContainer>
     </Container>

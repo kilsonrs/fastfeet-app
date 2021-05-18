@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useCallback, useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import Animated, {
   Extrapolate,
@@ -8,7 +8,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import api from '../../../services/api';
 
 import { Header } from '../../../components/Header';
 
@@ -20,15 +19,18 @@ import { IDelivery } from '../../../dtos/IDelivery';
 import { parseDate } from '../../../utils/parseDate';
 
 import { Container, Content } from './styles';
+import { useDelivery } from '../../../hooks/delivery';
+
+interface IDeliveryFormatted extends IDelivery {
+  created_at_formatted: string;
+}
 
 const Completed: React.FC = () => {
   const { navigate } = useNavigation();
-  const { name } = useRoute();
-
-  const [deliveries, setDeliveries] = useState<IDelivery[]>([]);
-  const [neighborhoodFilter, setNeighborhoodFilter] = useState<string | null>(
-    null,
-  );
+  const {
+    completedDeliveries,
+    filterByCompletedDeliveryNeighborhood,
+  } = useDelivery();
 
   const handlePackageDetail = useCallback(
     delivery => {
@@ -37,34 +39,22 @@ const Completed: React.FC = () => {
     [navigate],
   );
 
-  useEffect(() => {
-    async function loadDeliveries() {
-      const response = await api.get('/deliverers/id/deliveries', {
-        params: {
-          neighborhood: neighborhoodFilter,
-          completed: true,
-        },
-      });
-      setDeliveries(response.data);
-    }
-
-    loadDeliveries();
-  }, [neighborhoodFilter, name]);
-
-  const deliveriesFormatted: IDelivery[] = useMemo(() => {
-    return deliveries.map(delivery => ({
+  const deliveriesFormatted: IDeliveryFormatted[] = useMemo(() => {
+    return completedDeliveries.map(delivery => ({
       ...delivery,
-      created_at: parseDate(delivery.created_at),
-      start_date: delivery.start_date ? parseDate(delivery.start_date) : '',
-      end_date: delivery.end_date ? parseDate(delivery.end_date) : '',
+      created_at_formatted: parseDate(delivery.created_at),
+      start_date_formatted: delivery.start_date
+        ? parseDate(delivery.start_date)
+        : '',
+      end_date_formatted: delivery.end_date ? parseDate(delivery.end_date) : '',
     }));
-  }, [deliveries]);
+  }, [completedDeliveries]);
 
   const handleSearchNeighborhood = useCallback(
     (neighborhood: string | null) => {
-      setNeighborhoodFilter(neighborhood);
+      filterByCompletedDeliveryNeighborhood(neighborhood);
     },
-    [],
+    [filterByCompletedDeliveryNeighborhood],
   );
 
   const scrollY = useSharedValue(0);

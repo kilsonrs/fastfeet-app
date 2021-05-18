@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import Animated, {
@@ -8,7 +8,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import api from '../../../services/api';
 
 import { Header } from '../../../components/Header';
 
@@ -20,49 +19,58 @@ import { IDelivery } from '../../../dtos/IDelivery';
 import { parseDate } from '../../../utils/parseDate';
 
 import { Container, Content } from './styles';
+import { useDelivery } from '../../../hooks/delivery';
+
+interface IDeliveryFormatted extends IDelivery {
+  created_at_formatted: string;
+}
 
 const Pending: React.FC = () => {
   const { navigate } = useNavigation();
-
-  const [deliveries, setDeliveries] = useState<IDelivery[]>([]);
-  const [neighborhoodFilter, setNeighborhoodFilter] = useState<string | null>(
-    null,
-  );
+  const {
+    pendingDeliveries,
+    filterByPendingDeliveryNeighborhood,
+  } = useDelivery();
 
   const handlePackageDetail = useCallback(
     delivery => {
-      navigate('Details', { delivery, fromPage: 'Pending' });
+      const {
+        id,
+        status,
+        recipient,
+        created_at_formatted,
+        start_date_formatted,
+        end_date_formatted,
+      } = delivery;
+
+      const deliveryDetails = {
+        id,
+        status,
+        recipient,
+        created_at_formatted,
+        start_date_formatted,
+        end_date_formatted,
+      };
+      navigate('Details', { delivery: deliveryDetails, fromPage: 'Pending' });
     },
     [navigate],
   );
 
-  useEffect(() => {
-    async function loadDeliveries() {
-      const response = await api.get('/deliverers/id/deliveries', {
-        params: {
-          neighborhood: neighborhoodFilter,
-        },
-      });
-      setDeliveries(response.data);
-    }
-
-    loadDeliveries();
-  }, [neighborhoodFilter]);
-
-  const deliveriesFormatted: IDelivery[] = useMemo(() => {
-    return deliveries.map(delivery => ({
+  const deliveriesFormatted: IDeliveryFormatted[] = useMemo(() => {
+    return pendingDeliveries.map(delivery => ({
       ...delivery,
-      created_at: parseDate(delivery.created_at),
-      start_date: delivery.start_date ? parseDate(delivery.start_date) : '',
-      end_date: delivery.end_date ? parseDate(delivery.end_date) : '',
+      created_at_formatted: parseDate(delivery.created_at),
+      start_date_formatted: delivery.start_date
+        ? parseDate(delivery.start_date)
+        : '',
     }));
-  }, [deliveries]);
+  }, [pendingDeliveries]);
 
   const handleSearchNeighborhood = useCallback(
     (neighborhood: string | null) => {
-      setNeighborhoodFilter(neighborhood);
+      filterByPendingDeliveryNeighborhood(neighborhood);
     },
-    [],
+    [filterByPendingDeliveryNeighborhood],
   );
 
   const scrollY = useSharedValue(0);
