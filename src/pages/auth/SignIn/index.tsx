@@ -1,15 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {
-  Alert,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  TextInput,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Platform, TextInput, View } from 'react-native';
 
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
@@ -51,7 +43,6 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
   const [remember, setRemember] = useState(false);
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const { signIn } = useAuth();
 
   const backgroundOpacity = useSharedValue(0);
@@ -74,36 +65,17 @@ const SignIn: React.FC = () => {
     left: backgroundPosition.value,
   }));
 
-  const _keyboardDidShow = useCallback(() => {
-    setIsKeyboardOpen(true);
-    return (messageOpacity.value = withTiming(0, { duration: 500 }));
-  }, [messageOpacity]);
-
-  const _keyboardDidHide = useCallback(() => {
-    setIsKeyboardOpen(false);
-    return (messageOpacity.value = withTiming(1, { duration: 500 }));
-  }, [messageOpacity]);
-
-  const toggleKeyboardListeners = useCallback(() => {
-    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
-    };
-  }, [_keyboardDidShow, _keyboardDidHide]);
-
-  const startAnimations = useCallback(() => {
+  useEffect(() => {
     logoOpacity.value = withTiming(1, { duration: 500 });
     messageOpacity.value = withTiming(1, { duration: 1200 });
     backgroundOpacity.value = withTiming(1, { duration: 3000 });
     backgroundPosition.value = withTiming(0, { duration: 3200 });
-  }, [logoOpacity.value, messageOpacity.value, backgroundOpacity.value]);
-
-  useEffect(() => {
-    startAnimations();
-    toggleKeyboardListeners();
-  }, []);
+  }, [
+    logoOpacity.value,
+    messageOpacity.value,
+    backgroundOpacity.value,
+    backgroundPosition.value,
+  ]);
 
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
@@ -118,7 +90,7 @@ const SignIn: React.FC = () => {
         });
       }
     },
-    [signIn],
+    [signIn, navigation],
   );
 
   const handleForgot = useCallback(() => {
@@ -137,15 +109,13 @@ const SignIn: React.FC = () => {
       <Container>
         <FFBackground style={backgroundStyle} source={backgroundLogoImg} />
         <Logo style={logoStyle} />
-        {!isKeyboardOpen && (
-          <Animated.View style={messageStyle}>
-            <WelcomeMessageHighlighted>Entregador,</WelcomeMessageHighlighted>
-            <WelcomeMessage>{'você é nosso \nmaior valor'}</WelcomeMessage>
-            <ActionMessage>
-              {'Faça seu login para \ncomeçar suas entregas.'}
-            </ActionMessage>
-          </Animated.View>
-        )}
+        <Animated.View style={messageStyle}>
+          <WelcomeMessageHighlighted>Entregador,</WelcomeMessageHighlighted>
+          <WelcomeMessage>{'você é nosso \nmaior valor'}</WelcomeMessage>
+          <ActionMessage>
+            {'Faça seu login para \ncomeçar suas entregas.'}
+          </ActionMessage>
+        </Animated.View>
         <View>
           <Form
             ref={formRef}
@@ -171,7 +141,7 @@ const SignIn: React.FC = () => {
               placeholder="Senha"
               secureTextEntry
               returnKeyType="send"
-              onSubmitEditing={() => formRef.current?.submitForm()}
+              onSubmitEditing={handleSubmit}
             />
 
             <FormOptionsContent>

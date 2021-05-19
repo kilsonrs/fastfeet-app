@@ -51,20 +51,11 @@ const Forgot: React.FC = () => {
     opacity: backgroundOpacity.value,
   }));
 
-  const startAnimations = useCallback(() => {
+  useEffect(() => {
     logoOpacity.value = withTiming(1, { duration: 400 });
     messageOpacity.value = withTiming(1, { duration: 800 });
     addressOpacity.value = withTiming(1, { duration: 1200 });
     backgroundOpacity.value = withTiming(1, { duration: 3200 });
-  }, [
-    logoOpacity.value,
-    messageOpacity.value,
-    backgroundOpacity.value,
-    addressOpacity.value,
-  ]);
-
-  useEffect(() => {
-    startAnimations();
   }, []);
 
   const handleGoBack = useCallback(() => {
