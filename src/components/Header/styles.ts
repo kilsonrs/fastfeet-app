@@ -1,59 +1,59 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+import Animated from 'react-native-reanimated';
 
-export const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: 184,
-    backgroundColor: '#4c33cc',
-    justifyContent: 'flex-end',
-    position: 'absolute',
-    zIndex: 1,
-  },
-  profileContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    alignItems: 'center',
-    height: 76,
-    position: 'absolute',
-    top: 0,
-  },
-  profileText: {
-    fontFamily: 'Inter-Regular',
-    fontSize: 15,
-    color: '#d5ccff',
-    marginLeft: 24,
-  },
-  logoutButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginRight: 24,
-  },
-  headerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    width: '100%',
-    position: 'absolute',
-    bottom: 60,
-  },
-  headerTitle: {
-    fontFamily: 'RobotoCondensed-Bold',
-    fontSize: 32,
-    color: '#fff',
-    marginRight: 24,
-  },
+export const Container = styled(Animated.View)`
+  width: 100%;
+  height: 184px;
+  background-color: #4c33cc;
+  justify-content: flex-end;
+  position: absolute;
+  z-index: 1;
+`;
 
-  placeContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // marginLeft: 'auto',
-  },
-  placeText: {
-    fontFamily: 'Inter-Regular',
-    fontSize: 15,
-    color: '#d5ccff',
-    marginLeft: 8,
-  },
-});
+export const ProfileContent = styled(Animated.View)`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  height: 76px;
+  position: absolute;
+  top: 0;
+`;
+
+export const ProfileText = styled.Text`
+  font-family: 'Inter-Regular';
+  font-size: 15px;
+  color: #d5ccff;
+  margin-left: 24px;
+`;
+export const LogoutButton = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 24px;
+`;
+export const HeaderContent = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  width: 100%;
+  position: absolute;
+  bottom: 60px;
+`;
+export const HeaderTitle = styled.Text`
+  font-family: 'RobotoCondensed-Bold';
+  font-size: 32px;
+  color: #fff;
+  margin-right: 24px;
+`;
+
+export const PlaceContent = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+export const PlaceText = styled.Text`
+  font-family: 'Inter-Regular';
+  font-size: 15px;
+  color: #d5ccff;
+  margin-left: 8px;
+`;

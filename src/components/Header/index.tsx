@@ -1,18 +1,28 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { useAuth } from '../../hooks/auth';
 import { SearchInput } from '../SearchInput';
 
-import { styles } from './styles';
+import {
+  Container,
+  ProfileContent,
+  ProfileText,
+  LogoutButton,
+  HeaderContent,
+  HeaderTitle,
+  PlaceContent,
+  PlaceText,
+} from './styles';
 
 interface HeaderProps {
-  headerStyle: any;
-  profileStyle: any;
+  headerStyle: {
+    height: number;
+  };
+  profileStyle: {
+    opacity: number;
+  };
   handleSearchNeighborhood: (neighborhood: string | null) => void;
 }
 
@@ -23,28 +33,24 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const { signOut, user } = useAuth();
   return (
-    <Animated.View style={[styles.container, headerStyle]}>
-      <Animated.View style={[styles.profileContent, profileStyle]}>
-        <Text style={styles.profileText}>{`Bem vindo, \n${user.name}`}</Text>
-        <TouchableOpacity
-          style={styles.logoutButton}
-          activeOpacity={0.6}
-          onPress={() => signOut()}
-        >
+    <Container style={headerStyle}>
+      <ProfileContent style={profileStyle}>
+        <ProfileText>{`Bem vindo, \n${user.name}`}</ProfileText>
+        <LogoutButton activeOpacity={0.6} onPress={() => signOut()}>
           <Icon name="logout" size={24} color="#ffc042" />
-        </TouchableOpacity>
-      </Animated.View>
+        </LogoutButton>
+      </ProfileContent>
 
-      <View style={styles.headerContent}>
-        <Text style={styles.headerTitle}>Entregas</Text>
+      <HeaderContent>
+        <HeaderTitle>Entregas</HeaderTitle>
 
-        <View style={styles.placeContent}>
+        <PlaceContent>
           <Icon name="place" size={24} color="#ffc042" />
-          <Text style={styles.placeText}>São Paulo</Text>
-        </View>
-      </View>
+          <PlaceText>São Paulo</PlaceText>
+        </PlaceContent>
+      </HeaderContent>
       <SearchInput handleSearchNeighborhood={handleSearchNeighborhood} />
-    </Animated.View>
+    </Container>
   );
 };
 
