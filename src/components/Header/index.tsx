@@ -2,7 +2,6 @@ import React from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { View } from 'react-native';
 import { useAuth } from '../../hooks/auth';
 import { SearchInput } from '../SearchInput';
 
@@ -15,11 +14,19 @@ import {
   HeaderTitle,
   PlaceContent,
   PlaceText,
+  SearchContent,
 } from './styles';
 
 interface HeaderProps {
   headerStyle: {
-    height: number;
+    transform: {
+      translateY: number;
+    }[];
+  };
+  headerSearchStyle: {
+    transform: {
+      translateY: number;
+    }[];
   };
   profileStyle: {
     opacity: number;
@@ -29,6 +36,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({
   headerStyle,
+  headerSearchStyle,
   profileStyle,
   handleSearchNeighborhood,
 }) => {
@@ -52,9 +60,9 @@ const Header: React.FC<HeaderProps> = ({
           </PlaceContent>
         </HeaderContent>
       </Container>
-      <View style={{ marginTop: -28 }}>
+      <SearchContent style={headerSearchStyle}>
         <SearchInput handleSearchNeighborhood={handleSearchNeighborhood} />
-      </View>
+      </SearchContent>
     </>
   );
 };

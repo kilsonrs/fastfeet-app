@@ -6,8 +6,7 @@ export const Container = styled(Animated.View)`
   height: 184px;
   background-color: #4c33cc;
   justify-content: flex-end;
-  /* position: absolute; */
-  /* z-index: 1; */
+  z-index: 1;
 `;
 export const ProfileContent = styled(Animated.View)`
   flex-direction: row;
@@ -56,4 +55,9 @@ export const PlaceText = styled.Text`
   font-size: 15px;
   color: #d5ccff;
   margin-left: 8px;
+`;
+
+export const SearchContent = styled(Animated.View)`
+  margin-top: -28px;
+  z-index: 1;
 `;

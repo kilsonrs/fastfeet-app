@@ -67,18 +67,36 @@ const Completed: React.FC = () => {
 
   const headerAnimationStyle = useAnimatedStyle(() => {
     return {
-      height: interpolate(
-        scrollY.value,
-        [0, 72],
-        [184, 112],
-        Extrapolate.CLAMP,
-      ),
+      transform: [
+        {
+          translateY: interpolate(
+            scrollY.value,
+            [0, 72],
+            [0, -72],
+            Extrapolate.CLAMP,
+          ),
+        },
+      ],
+    };
+  });
+  const headerSearchAnimationStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(
+            scrollY.value,
+            [0, 72],
+            [0, -72],
+            Extrapolate.CLAMP,
+          ),
+        },
+      ],
     };
   });
 
   const profileAnimationStyle = useAnimatedStyle(() => {
     return {
-      opacity: interpolate(scrollY.value, [20, 60], [1, 0], Extrapolate.CLAMP),
+      opacity: interpolate(scrollY.value, [0, 30], [1, 0], Extrapolate.CLAMP),
     };
   });
 
@@ -86,6 +104,7 @@ const Completed: React.FC = () => {
     <Container>
       <Header
         headerStyle={headerAnimationStyle}
+        headerSearchStyle={headerSearchAnimationStyle}
         profileStyle={profileAnimationStyle}
         handleSearchNeighborhood={handleSearchNeighborhood}
       />
@@ -94,12 +113,11 @@ const Completed: React.FC = () => {
           onScroll={scrollHandler}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
-          style={{ zIndex: 0 }}
-          contentContainerStyle={
-            {
-              // paddingTop: 212,
-            }
-          }
+          style={{ elevation: 0, zIndex: 0, marginTop: -212 }}
+          contentContainerStyle={{
+            paddingTop: 212,
+            paddingBottom: 212,
+          }}
         >
           <TotalListItems count={deliveriesFormatted.length} />
           {deliveriesFormatted.map(delivery => (
