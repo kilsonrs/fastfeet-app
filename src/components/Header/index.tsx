@@ -2,6 +2,7 @@ import React from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { View } from 'react-native';
 import { useAuth } from '../../hooks/auth';
 import { SearchInput } from '../SearchInput';
 
@@ -33,24 +34,28 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const { signOut, user } = useAuth();
   return (
-    <Container style={headerStyle}>
-      <ProfileContent style={profileStyle}>
-        <ProfileText>{`Bem vindo, \n${user.name}`}</ProfileText>
-        <LogoutButton activeOpacity={0.6} onPress={() => signOut()}>
-          <Icon name="logout" size={24} color="#ffc042" />
-        </LogoutButton>
-      </ProfileContent>
+    <>
+      <Container style={headerStyle}>
+        <ProfileContent style={profileStyle}>
+          <ProfileText>{`Bem vindo, \n${user.name}`}</ProfileText>
+          <LogoutButton activeOpacity={0.6} onPress={() => signOut()}>
+            <Icon name="logout" size={24} color="#ffc042" />
+          </LogoutButton>
+        </ProfileContent>
 
-      <HeaderContent>
-        <HeaderTitle>Entregas</HeaderTitle>
+        <HeaderContent>
+          <HeaderTitle>Entregas</HeaderTitle>
 
-        <PlaceContent>
-          <Icon name="place" size={24} color="#ffc042" />
-          <PlaceText>São Paulo</PlaceText>
-        </PlaceContent>
-      </HeaderContent>
-      <SearchInput handleSearchNeighborhood={handleSearchNeighborhood} />
-    </Container>
+          <PlaceContent>
+            <Icon name="place" size={24} color="#ffc042" />
+            <PlaceText>São Paulo</PlaceText>
+          </PlaceContent>
+        </HeaderContent>
+      </Container>
+      <View style={{ marginTop: -28 }}>
+        <SearchInput handleSearchNeighborhood={handleSearchNeighborhood} />
+      </View>
+    </>
   );
 };
 

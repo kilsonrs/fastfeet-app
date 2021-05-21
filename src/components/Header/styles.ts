@@ -6,10 +6,9 @@ export const Container = styled(Animated.View)`
   height: 184px;
   background-color: #4c33cc;
   justify-content: flex-end;
-  position: absolute;
-  z-index: 1;
+  /* position: absolute; */
+  /* z-index: 1; */
 `;
-
 export const ProfileContent = styled(Animated.View)`
   flex-direction: row;
   justify-content: space-between;
@@ -19,7 +18,6 @@ export const ProfileContent = styled(Animated.View)`
   position: absolute;
   top: 0;
 `;
-
 export const ProfileText = styled.Text`
   font-family: 'Inter-Regular';
   font-size: 15px;
@@ -46,7 +44,6 @@ export const HeaderTitle = styled.Text`
   color: #fff;
   margin-right: 24px;
 `;
-
 export const PlaceContent = styled.View`
   flex-direction: row;
   align-items: center;

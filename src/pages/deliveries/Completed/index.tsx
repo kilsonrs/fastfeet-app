@@ -95,9 +95,11 @@ const Completed: React.FC = () => {
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
           style={{ zIndex: 0 }}
-          contentContainerStyle={{
-            paddingTop: 212,
-          }}
+          contentContainerStyle={
+            {
+              // paddingTop: 212,
+            }
+          }
         >
           <TotalListItems count={deliveriesFormatted.length} />
           {deliveriesFormatted.map(delivery => (
