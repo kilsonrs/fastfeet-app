@@ -1,7 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { KeyboardAvoidingView, Platform, TextInput, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+  View,
+} from 'react-native';
 
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
@@ -42,6 +48,7 @@ const SignIn: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [remember, setRemember] = useState(false);
   const { signIn } = useAuth();
 
@@ -64,6 +71,25 @@ const SignIn: React.FC = () => {
     opacity: backgroundOpacity.value,
     left: backgroundPosition.value,
   }));
+
+  const _keyboardDidShow = useCallback(() => {
+    setIsKeyboardOpen(true);
+    return (messageOpacity.value = withTiming(0, { duration: 500 }));
+  }, [messageOpacity]);
+
+  const _keyboardDidHide = useCallback(() => {
+    setIsKeyboardOpen(false);
+    return (messageOpacity.value = withTiming(1, { duration: 500 }));
+  }, [messageOpacity]);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, [_keyboardDidShow, _keyboardDidHide]);
 
   useEffect(() => {
     logoOpacity.value = withTiming(1, { duration: 500 });
@@ -100,22 +126,23 @@ const SignIn: React.FC = () => {
   const handleSubmit = useCallback(() => {
     formRef.current?.submitForm();
   }, []);
-
   return (
-    <KeyboardAvoidingView
-      style={{ height: 950 }}
-      behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
-    >
-      <Container>
+    <Container>
+      <KeyboardAvoidingView
+        style={{ height: 950 }}
+        behavior={Platform.OS === 'ios' ? 'height' : null}
+      >
         <FFBackground style={backgroundStyle} source={backgroundLogoImg} />
         <Logo style={logoStyle} />
-        <Animated.View style={messageStyle}>
-          <WelcomeMessageHighlighted>Entregador,</WelcomeMessageHighlighted>
-          <WelcomeMessage>{'você é nosso \nmaior valor'}</WelcomeMessage>
-          <ActionMessage>
-            {'Faça seu login para \ncomeçar suas entregas.'}
-          </ActionMessage>
-        </Animated.View>
+        {!isKeyboardOpen && (
+          <Animated.View style={messageStyle}>
+            <WelcomeMessageHighlighted>Entregador,</WelcomeMessageHighlighted>
+            <WelcomeMessage>{'você é nosso \nmaior valor'}</WelcomeMessage>
+            <ActionMessage>
+              {'Faça seu login para \ncomeçar suas entregas.'}
+            </ActionMessage>
+          </Animated.View>
+        )}
         <View>
           <Form
             ref={formRef}
@@ -170,8 +197,8 @@ const SignIn: React.FC = () => {
         <Button title="Entrar" onPress={handleSubmit}>
           Entrar
         </Button>
-      </Container>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </Container>
   );
 };
 

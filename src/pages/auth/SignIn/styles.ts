@@ -5,6 +5,7 @@ import Animated from 'react-native-reanimated';
 export const Container = styled.View`
   flex: 1;
   background-color: #4c33cc;
+  height: 100%;
   width: 100%;
   padding: 32px;
   elevation: 1;
