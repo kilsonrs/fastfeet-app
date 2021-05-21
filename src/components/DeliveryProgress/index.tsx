@@ -57,23 +57,31 @@ const DeliveryProgress: React.FC<DeliveryProgressProps> = ({ status }) => {
       }));
     }, 500);
 
+    return () => {
+      clearTimeout(progressTimer);
+    };
+  }, [progressWidth.value, progressToValue, status]);
+
+  useEffect(() => {
     const pickedCheckTimer = setTimeout(
       () => {
         return setIsPicked(status === 'retirada' || status === 'entregue');
       },
       status === 'entregue' ? 1500 : 2500,
     );
+    return () => {
+      clearTimeout(pickedCheckTimer);
+    };
+  }, [status]);
 
+  useEffect(() => {
     const deliveredCheckTimer = setTimeout(() => {
       return setIsDelivered(status === 'entregue');
     }, 2500);
-
     return () => {
-      clearTimeout(progressTimer);
-      clearTimeout(pickedCheckTimer);
       clearTimeout(deliveredCheckTimer);
     };
-  }, [progressWidth.value, progressToValue, status]);
+  }, [status]);
 
   return (
     <Container>
