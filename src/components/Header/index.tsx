@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({
       <Container style={headerStyle}>
         <ProfileContent style={profileStyle}>
           <ProfileText>{`Bem vindo, \n${user.name}`}</ProfileText>
-          <LogoutButton activeOpacity={0.6} onPress={() => signOut()}>
+          <LogoutButton onPress={() => signOut()}>
             <Icon name="logout" size={24} color="#ffc042" />
           </LogoutButton>
         </ProfileContent>

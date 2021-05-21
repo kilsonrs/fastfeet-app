@@ -24,7 +24,10 @@ export const ProfileText = styled.Text`
   color: #d5ccff;
   margin-left: 24px;
 `;
-export const LogoutButton = styled.TouchableOpacity`
+export const LogoutButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.6,
+  hitSlop: { top: 20, bottom: 20, left: 50, right: 50 },
+})`
   flex-direction: row;
   justify-content: center;
   margin-right: 24px;
