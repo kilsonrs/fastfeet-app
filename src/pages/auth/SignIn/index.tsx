@@ -53,7 +53,7 @@ const SignIn: React.FC = () => {
   const { signIn } = useAuth();
 
   const backgroundOpacity = useSharedValue(0);
-  const backgroundPosition = useSharedValue(-40);
+  const backgroundPosition = useSharedValue(-72);
 
   const messageOpacity = useSharedValue(0);
   const logoOpacity = useSharedValue(0);
@@ -95,7 +95,7 @@ const SignIn: React.FC = () => {
     logoOpacity.value = withTiming(1, { duration: 500 });
     messageOpacity.value = withTiming(1, { duration: 1200 });
     backgroundOpacity.value = withTiming(1, { duration: 3000 });
-    backgroundPosition.value = withTiming(0, { duration: 3200 });
+    backgroundPosition.value = withTiming(-32, { duration: 3200 });
   }, [
     logoOpacity.value,
     messageOpacity.value,
@@ -119,6 +119,13 @@ const SignIn: React.FC = () => {
     [signIn, navigation],
   );
 
+  const handleCpfInputChange = useCallback(e => {
+    const inputValue = e.nativeEvent.text;
+    if (inputValue.length === 11) {
+      passwordInputRef.current?.focus();
+    }
+  }, []);
+
   const handleForgot = useCallback(() => {
     navigation.navigate('Forgot');
   }, [navigation]);
@@ -129,7 +136,7 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <KeyboardAvoidingView
-        style={{ height: 950 }}
+        // style={{ height: 950 }}
         behavior={Platform.OS === 'ios' ? 'height' : null}
       >
         <FFBackground style={backgroundStyle} source={backgroundLogoImg} />
@@ -159,6 +166,7 @@ const SignIn: React.FC = () => {
               returnKeyType="next"
               name="cpf"
               icon="person"
+              onChange={handleCpfInputChange}
               onSubmitEditing={() => passwordInputRef.current?.focus()}
             />
             <Input
