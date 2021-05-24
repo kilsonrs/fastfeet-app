@@ -1,7 +1,5 @@
 <h1 align="center">
-  <a name="logo" href="https://webfastfeet.netlify.app">
-    <img src="https://github.com/kilsonrs/fastfeet/raw/main/.github/logo.png" alt="MK Finder" width="222">
-  </a>
+  <img src="https://github.com/kilsonrs/fastfeet/raw/main/.github/logo.png" alt="MK Finder" width="222">
   <br>
 </h1>
 <br />
